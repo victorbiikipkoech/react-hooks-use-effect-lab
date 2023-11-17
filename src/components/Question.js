@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Question({ question, onAnswered }) {
   const [timeRemaining, setTimeRemaining] = useState(10);
 
-  // add useEffect code
+  useEffect(() => {
+    const timerId = setTimeout(() => {
+      // Decrease timeRemaining by 1 every second
+      setTimeRemaining((prevTime) => (prevTime > 0 ? prevTime - 1 : prevTime));
+    }, 1000);
+
+    
+    return () => clearTimeout(timerId);
+
+  }, [timeRemaining, setTimeRemaining, onAnswered]);
+
+  useEffect(() => {
+    if (timeRemaining === 0) {
+      setTimeRemaining(10);
+      onAnswered(false);
+    }
+
+  }, [timeRemaining, onAnswered]);
 
   function handleAnswer(isCorrect) {
+  
     setTimeRemaining(10);
     onAnswered(isCorrect);
   }
@@ -30,3 +48,5 @@ function Question({ question, onAnswered }) {
 }
 
 export default Question;
+
+

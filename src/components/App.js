@@ -10,12 +10,12 @@ function App() {
 
   function handleQuestionAnswered(correct) {
     if (currentQuestionId < questions.length) {
-      setCurrentQuestion((currentQuestionId) => currentQuestionId + 1);
+      setCurrentQuestion((prevId) => prevId + 1);
     } else {
       setCurrentQuestion(null);
     }
     if (correct) {
-      setScore((score) => score + 1);
+      setScore((prevScore) => prevScore + 1);
     }
   }
 
